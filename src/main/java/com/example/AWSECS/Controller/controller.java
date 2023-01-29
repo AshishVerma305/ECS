@@ -26,6 +26,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
+import java.util.Collection;
 
 
 @RestController
@@ -63,8 +65,17 @@ public class controller {
             AmazonElasticLoadBalancing amazonElasticLoadBalancing=AmazonElasticLoadBalancingClientBuilder.standard().withRegion(Regions.US_EAST_1).build();
             CreateTargetGroupResult createTargetGroupResult=amazonElasticLoadBalancing.createTargetGroup(createTargetGroupRequest);
             System.out.println("createTargetGroupResult"+createTargetGroupResult);
+
+            TargetDescription targetDescription=new TargetDescription();
+            targetDescription.setId("10.100.5.43");
+            Collection<TargetDescription> targetDescriptionCollection=new ArrayList<>();
+            targetDescriptionCollection.add(targetDescription);
+            
+            
             RegisterTargetsRequest registerTargetsRequest=new RegisterTargetsRequest();
             registerTargetsRequest.setTargetGroupArn(createTargetGroupResult.getTargetGroups().get(0).getTargetGroupArn());
+
+            registerTargetsRequest.setTargets(targetDescriptionCollection);
             System.out.println("registerTargetsRequest"+registerTargetsRequest);
             RegisterTargetsResult registerTargetsResult=amazonElasticLoadBalancing.registerTargets(registerTargetsRequest);
             System.out.println("registerTargetsResult"+registerTargetsResult);
