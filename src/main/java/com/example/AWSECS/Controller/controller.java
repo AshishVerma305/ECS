@@ -17,7 +17,10 @@ import com.amazonaws.services.ecs.AmazonECS;
 
 import com.amazonaws.services.ecs.AmazonECSClientBuilder;
 
+import com.amazonaws.services.elasticloadbalancingv2.AmazonElasticLoadBalancing;
+import com.amazonaws.services.elasticloadbalancingv2.AmazonElasticLoadBalancingClientBuilder;
 import com.amazonaws.services.elasticloadbalancingv2.model.*;
+import com.amazonaws.services.opsworks.model.ElasticLoadBalancer;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,7 +40,7 @@ public class controller {
 
 
 
-           AmazonEC2 amazonEC2 = AmazonEC2ClientBuilder.standard().withRegion(Regions.US_EAST_1)
+            AmazonEC2 amazonEC2 = AmazonEC2ClientBuilder.standard().withRegion(Regions.US_EAST_1)
                     .build();
             String instanceId="i-01617add322847a93";
 
@@ -65,10 +68,10 @@ public class controller {
             System.out.println("registerTargetsRequest"+registerTargetsRequest);
             RegisterTargetsResult registerTargetsResult=amazonElasticLoadBalancing.registerTargets(registerTargetsRequest);
             System.out.println("registerTargetsResult"+registerTargetsResult);
-
-        }catch (Exception e)
+        }
+        catch (Exception e)
         {
-            System.out.println(e);
+
         }
 
     }
