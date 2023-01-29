@@ -70,8 +70,8 @@ public class controller {
             targetDescription.setId("10.100.5.43");
             Collection<TargetDescription> targetDescriptionCollection=new ArrayList<>();
             targetDescriptionCollection.add(targetDescription);
-            
-            
+
+
             RegisterTargetsRequest registerTargetsRequest=new RegisterTargetsRequest();
             registerTargetsRequest.setTargetGroupArn(createTargetGroupResult.getTargetGroups().get(0).getTargetGroupArn());
 
@@ -79,6 +79,14 @@ public class controller {
             System.out.println("registerTargetsRequest"+registerTargetsRequest);
             RegisterTargetsResult registerTargetsResult=amazonElasticLoadBalancing.registerTargets(registerTargetsRequest);
             System.out.println("registerTargetsResult"+registerTargetsResult);
+
+            Collection<String> loadBalancerName=new ArrayList<>();
+            loadBalancerName.add("cmdev-ondotsystems-com");
+            
+            DescribeLoadBalancersRequest describeLoadBalancersRequest=new DescribeLoadBalancersRequest();
+            describeLoadBalancersRequest.setNames(loadBalancerName);
+            DescribeLoadBalancersResult describeLoadBalancersResult=amazonElasticLoadBalancing.describeLoadBalancers(describeLoadBalancersRequest);
+            System.out.println("describeLoadBalancersResult"+describeLoadBalancersResult);
         }
         catch (Exception e)
         {
