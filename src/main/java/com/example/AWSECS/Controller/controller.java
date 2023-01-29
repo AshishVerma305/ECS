@@ -37,7 +37,7 @@ public class controller {
 
 
 
-            AmazonEC2 amazonEC2 = AmazonEC2ClientBuilder.standard().withRegion(Regions.US_EAST_1)
+           AmazonEC2 amazonEC2 = AmazonEC2ClientBuilder.standard().withRegion(Regions.US_EAST_1)
                     .build();
             String instanceId="i-01617add322847a93";
 
@@ -57,8 +57,14 @@ public class controller {
             createTargetGroupRequest.setIpAddressType(TargetGroupIpAddressTypeEnum.Ipv4);
             createTargetGroupRequest.setMatcher(matcher);
             createTargetGroupRequest.setHealthCheckPort("8083");
-            System.out.println(createTargetGroupRequest);
-            System.out.println("Created");
+            AmazonElasticLoadBalancing amazonElasticLoadBalancing=AmazonElasticLoadBalancingClientBuilder.standard().withRegion(Regions.US_EAST_1).build();
+            CreateTargetGroupResult createTargetGroupResult=amazonElasticLoadBalancing.createTargetGroup(createTargetGroupRequest);
+            System.out.println("createTargetGroupResult"+createTargetGroupResult);
+            RegisterTargetsRequest registerTargetsRequest=new RegisterTargetsRequest();
+            registerTargetsRequest.setTargetGroupArn(createTargetGroupResult.getTargetGroups().get(0).getTargetGroupArn());
+            System.out.println("registerTargetsRequest"+registerTargetsRequest);
+            RegisterTargetsResult registerTargetsResult=amazonElasticLoadBalancing.registerTargets(registerTargetsRequest);
+            System.out.println("registerTargetsResult"+registerTargetsResult);
 
         }catch (Exception e)
         {
