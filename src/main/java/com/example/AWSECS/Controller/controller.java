@@ -115,7 +115,7 @@ public class controller {
             CreateListenerResult createListenerResult=amazonElasticLoadBalancing.createListener(createListenerRequest);
             System.out.println("createListenerResult-------->"+createListenerResult);
 
-
+            Thread.sleep(20000);
 
             Action action=new Action();
             ForwardActionConfig forwardActionConfig=new ForwardActionConfig();
