@@ -115,7 +115,7 @@ public class controller {
             CreateListenerResult createListenerResult=amazonElasticLoadBalancing.createListener(createListenerRequest);
             System.out.println("createListenerResult-------->"+createListenerResult);
 
-            Thread.sleep(20000);
+            Thread.sleep(10000);
 
             Action action=new Action();
             ForwardActionConfig forwardActionConfig=new ForwardActionConfig();
@@ -126,6 +126,7 @@ public class controller {
             targetGroupCollection.add(targetGroupTuple);
             forwardActionConfig.setTargetGroups(targetGroupCollection);
             action.setForwardConfig(forwardActionConfig);
+            action.setType(ActionTypeEnum.Forward);
             Collection<Action> actionCollectionList=new ArrayList<>();
             actionCollectionList.add(action);
 
