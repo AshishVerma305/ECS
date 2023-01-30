@@ -150,7 +150,7 @@ public class controller {
         }
         catch (Exception e)
         {
-
+            System.out.println(e);
         }
 
     }
